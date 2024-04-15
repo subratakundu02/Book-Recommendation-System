@@ -2,10 +2,12 @@ from flask import Flask,render_template, request
 import pickle
 import numpy as np
 import pandas as pd
+
 # popularity_df = pickle.load(open('popular.pkl','rb'))
 popularity_df = pd.read_csv('popularity.csv')
 # popularity_df.reset_index(inplace=True)
-pt = pickle.load(open('pt.pkl','rb'))
+pt = pd.compat.pickle_compat.load(open('pt.pkl','rb'))
+# pt.reset_index(inplace=True)
 books = pickle.load(open('books.pkl','rb'))
 similarity_scores = pickle.load(open('similarity_scores.pkl','rb'))
 
@@ -40,7 +42,7 @@ def recommend():
             item.extend(list(temp_df.drop_duplicates('Book-Title')['Image-URL-M'].values))
 
             data.append(item)
-      print(data)
+      # print(data)
       return render_template('recommend.html',data=data)
       return str(user_input)
 
